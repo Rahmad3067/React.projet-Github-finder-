@@ -1,44 +1,36 @@
-import React, { Component } from 'react'
+import React from 'react'
 import UserItem from './UserItem';
-
-class Users extends Component {
-    // for now we use just 3
-    state = {
-        Users:[
-            {
-                id: '1',
-                login: 'mojombo',
-                avatar_url: 'https://avatars.githubusercontent.com/u/1?v=4',
-                html_url: 'https://github.com/mojombo',
-            },
-            {
-                id: '2',
-                login: 'defunk',
-                avatar_url: 'https://avatars.githubusercontent.com/u/2?v=4',
-                html_url: 'https://github.com/defunkt',
-            },
-            {
-                id: '3',
-                login: 'pjhyett',
-                avatar_url: 'https://avatars.githubusercontent.com/u/3?v=4',
-                html_url: 'https://github.com/pjhyett',
-            }
-        ]
-    }
+import Spinner from '../layout/Spinner';
+import PropTypes from 'prop-types'
 
 
-
-    render() {
+// instead of class we can use functional components
+const Users = ({ users, loading }) => {
+    // we can use our spinner image for while the page searching for the information
+    if( loading){
+        return <Spinner />
+    } else {
         return (
             <div style={userStyle}>
-                {this.state.Users.map(user =>(
+                {users.map(user =>(
                     <UserItem key={user.id} user={user} />
                 ))}
             </div>
-        )
+        );
+
     }
 }
 
+Users.propTypes = {
+    users: PropTypes.array.isRequired,
+    users: PropTypes.bool.isRequired,
+}
+
+
+
+
+
+// Styles
 const userStyle = {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
